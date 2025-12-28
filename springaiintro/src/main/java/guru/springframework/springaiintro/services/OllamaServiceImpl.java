@@ -6,6 +6,8 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.stereotype.Service;
 
+import guru.springframework.springaiintro.model.Answer;
+import guru.springframework.springaiintro.model.Question;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 
@@ -22,6 +24,15 @@ public class OllamaServiceImpl implements OllamaService {
 
         ChatResponse response = chatModel.call(prompt);
         return response.getResult().getOutput().getText();
+    }
+
+    @Override
+    public Answer getAnswer(Question question) {
+        PromptTemplate promptTemplate = new PromptTemplate(question.question());
+        Prompt prompt = promptTemplate.create();
+
+        ChatResponse response = chatModel.call(prompt);
+        return new Answer(response.getResult().getOutput().getText());
     }
 
     @Override
