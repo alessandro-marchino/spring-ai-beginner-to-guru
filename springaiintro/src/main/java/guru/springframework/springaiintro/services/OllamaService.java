@@ -12,4 +12,5 @@ public interface OllamaService {
 
     Answer getAnswer(Question question);
     Answer getCapital(GetCapitalRequest question);
+    Answer getCapitalWithInfo(GetCapitalRequest getCapitalRequest);
 }

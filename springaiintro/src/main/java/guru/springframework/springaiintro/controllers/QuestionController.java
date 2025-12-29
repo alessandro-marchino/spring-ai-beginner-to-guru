@@ -31,4 +31,10 @@ public class QuestionController {
         log.info("Invoked getCapitalRequest");
         return ollamaService.getCapital(getCapitalRequest);
     }
+
+    @PostMapping("/capitalWithInfo")
+    public Answer getCapitalWithInfo(@RequestBody GetCapitalRequest getCapitalRequest) {
+        log.info("Invoked getCapitalRequest");
+        return ollamaService.getCapitalWithInfo(getCapitalRequest);
+    }
 }

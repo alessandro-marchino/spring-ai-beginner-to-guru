@@ -23,6 +23,8 @@ public class OllamaServiceImpl implements OllamaService {
     private final ChatModel chatModel;
     @Value("classpath:templates/get-capital-prompt.st")
     private Resource getCapitalPrompt;
+    @Value("classpath:templates/get-capital-with-info-prompt.st")
+    private Resource getCapitalWithInfoPrompt;
 
     @Override
     public String getAnswer(String question) {
@@ -51,6 +53,15 @@ public class OllamaServiceImpl implements OllamaService {
     @Override
     public Answer getCapital(GetCapitalRequest getCapitalRequest) {
         PromptTemplate promptTemplate = new PromptTemplate(getCapitalPrompt);
+        Prompt prompt = promptTemplate.create(Map.of("stateOrCountry", getCapitalRequest.stateOrCountry()));
+
+        ChatResponse response = chatModel.call(prompt);
+        return new Answer(response.getResult().getOutput().getText());
+    }
+
+    @Override
+    public Answer getCapitalWithInfo(GetCapitalRequest getCapitalRequest) {
+        PromptTemplate promptTemplate = new PromptTemplate(getCapitalWithInfoPrompt);
         Prompt prompt = promptTemplate.create(Map.of("stateOrCountry", getCapitalRequest.stateOrCountry()));
 
         ChatResponse response = chatModel.call(prompt);
