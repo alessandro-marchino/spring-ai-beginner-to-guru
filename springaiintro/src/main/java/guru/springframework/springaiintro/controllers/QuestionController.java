@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import guru.springframework.springaiintro.model.Answer;
 import guru.springframework.springaiintro.model.GetCapitalRequest;
 import guru.springframework.springaiintro.model.GetCapitalResponse;
+import guru.springframework.springaiintro.model.GetCapitalWithInfoResponse;
 import guru.springframework.springaiintro.model.Question;
 import guru.springframework.springaiintro.services.OllamaService;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,13 @@ public class QuestionController {
 
     @PostMapping("/capital")
     public GetCapitalResponse getCapital(@RequestBody GetCapitalRequest getCapitalRequest) {
-        log.info("Invoked getCapitalRequest");
+        log.info("Invoked getCapital");
         return ollamaService.getCapital(getCapitalRequest);
     }
 
     @PostMapping("/capitalWithInfo")
-    public Answer getCapitalWithInfo(@RequestBody GetCapitalRequest getCapitalRequest) {
-        log.info("Invoked getCapitalRequest");
+    public GetCapitalWithInfoResponse getCapitalWithInfo(@RequestBody GetCapitalRequest getCapitalRequest) {
+        log.info("Invoked getCapitalWithInfo");
         return ollamaService.getCapitalWithInfo(getCapitalRequest);
     }
 }
