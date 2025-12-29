@@ -10,17 +10,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import guru.springframework.springaiintro.model.Answer;
 import guru.springframework.springaiintro.model.GetCapitalRequest;
 import guru.springframework.springaiintro.model.Question;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OllamaServiceImpl implements OllamaService {
 
     private final ChatModel chatModel;
+    private final ObjectMapper objectMapper;
+
     @Value("classpath:templates/get-capital-prompt.st")
     private Resource getCapitalPrompt;
     @Value("classpath:templates/get-capital-with-info-prompt.st")
@@ -42,7 +50,6 @@ public class OllamaServiceImpl implements OllamaService {
 
         ChatResponse response = chatModel.call(prompt);
         return new Answer(response.getResult().getOutput().getText());
-
     }
 
     @Override
@@ -56,7 +63,14 @@ public class OllamaServiceImpl implements OllamaService {
         Prompt prompt = promptTemplate.create(Map.of("stateOrCountry", getCapitalRequest.stateOrCountry()));
 
         ChatResponse response = chatModel.call(prompt);
-        return new Answer(response.getResult().getOutput().getText());
+        String responseString = response.getResult().getOutput().getText();
+        log.info("Answer: {}", responseString);
+        try {
+            JsonNode jsonNode = objectMapper.readTree(responseString);
+            return new Answer(jsonNode.get("answer").asText());
+        } catch(JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
