@@ -1,21 +1,20 @@
 package guru.springframework.springaiintro.services;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import guru.springframework.springaiintro.model.Answer;
 import guru.springframework.springaiintro.model.GetCapitalRequest;
+import guru.springframework.springaiintro.model.GetCapitalResponse;
 import guru.springframework.springaiintro.model.Question;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,6 @@ import reactor.core.publisher.Flux;
 public class OllamaServiceImpl implements OllamaService {
 
     private final ChatModel chatModel;
-    private final ObjectMapper objectMapper;
 
     @Value("classpath:templates/get-capital-prompt.st")
     private Resource getCapitalPrompt;
@@ -58,19 +56,16 @@ public class OllamaServiceImpl implements OllamaService {
     }
 
     @Override
-    public Answer getCapital(GetCapitalRequest getCapitalRequest) {
+    public GetCapitalResponse getCapital(GetCapitalRequest getCapitalRequest) {
+        BeanOutputConverter<GetCapitalResponse> converter = new BeanOutputConverter<>(GetCapitalResponse.class);
+
         PromptTemplate promptTemplate = new PromptTemplate(getCapitalPrompt);
-        Prompt prompt = promptTemplate.create(Map.of("stateOrCountry", getCapitalRequest.stateOrCountry()));
+        Prompt prompt = promptTemplate.create(Map.of(
+            "stateOrCountry", getCapitalRequest.stateOrCountry(),
+            "format", converter.getFormat()));
 
         ChatResponse response = chatModel.call(prompt);
-        String responseString = response.getResult().getOutput().getText();
-        log.info("Answer: {}", responseString);
-        try {
-            JsonNode jsonNode = objectMapper.readTree(responseString);
-            return new Answer(jsonNode.get("answer").asText());
-        } catch(JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return converter.convert(Objects.requireNonNull(response.getResult().getOutput().getText()));
     }
 
     @Override
