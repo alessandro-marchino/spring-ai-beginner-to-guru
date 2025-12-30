@@ -35,7 +35,11 @@ public class BaseChatServiceImpl implements BaseChatService {
     public String chat(String prompt, Map<String, Object> params, @Nullable ChatOptions chatOptions) {
         PromptTemplate promptTemplate = new PromptTemplate(prompt);
         Prompt promptToSend = promptTemplate.create(params, chatOptions);
-        return chatModel.call(promptToSend).getResult().getOutput().getText();
+        return chat(promptToSend);
     }
 
+    @Override
+    public String chat(Prompt prompt) {
+        return chatModel.call(prompt).getResult().getOutput().getText();
+    }
 }
