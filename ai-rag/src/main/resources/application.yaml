@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ai-rag
+  ai:
+    ollama:
+      chat:
+        model: qwen3:8b
+
+sfg:
+  aiapp:
+    vectorStorePath: /tmp/vectorstore.json
+    documentsToLoad:
+      - classpath:/movies500.csv
