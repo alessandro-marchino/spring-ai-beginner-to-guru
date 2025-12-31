@@ -27,7 +27,7 @@ public class OllamaAIService implements AIService {
     private final SimpleVectorStore vectorStore;
 
 
-    @Value("classpath:/templates/req-prompt-template.st")
+    @Value("classpath:/templates/req-prompt-template-meta.st")
     private Resource reqPromptTemplate;
 
     @Override
