@@ -32,10 +32,13 @@ public class VectorStoreConfig {
                 log.info("Loading document: {}", document.getFilename());
                 TikaDocumentReader documentReader = new TikaDocumentReader(document);
                 List<Document> docs = documentReader.get();
-                TextSplitter textSplitter = new TokenTextSplitter();
+                TextSplitter textSplitter = TokenTextSplitter.builder()
+                    .withChunkSize(386)
+                    .build();
                 List<Document> splitDocs = textSplitter.apply(docs);
                 store.add(splitDocs);
             });
+            store.save(vectorStoreFile);
         }
 
         return store;

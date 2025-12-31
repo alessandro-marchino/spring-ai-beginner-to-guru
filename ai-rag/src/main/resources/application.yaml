@@ -5,6 +5,8 @@ spring:
     ollama:
       chat:
         model: qwen3:8b
+      embedding:
+        model: mxbai-embed-large:335m
 
 sfg:
   aiapp:

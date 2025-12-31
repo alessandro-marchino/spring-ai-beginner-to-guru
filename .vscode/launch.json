@@ -9,6 +9,16 @@
             "projectName": "springaiintro",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AiRagApplication<ai-rag>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "guru.springframework.airag.AiRagApplication",
+            "projectName": "ai-rag",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
