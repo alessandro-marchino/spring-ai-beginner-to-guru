@@ -19,6 +19,16 @@
             "projectName": "ai-rag",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AiRagExpertApplication<ai-rag-expert>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "guru.springframework.airagexpert.AiRagExpertApplication",
+            "projectName": "ai-rag-expert",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

@@ -16,9 +16,10 @@ spring:
           password: milvus
         database-name: "default"
         collection-name: "vector_store"
-        embedding-dimension: 1536
+        embedding-dimension: 1024
         index-type: ivf-flat
         metric-type: cosine
+        initialize-schema: true
 
 sfg:
   aiapp:
