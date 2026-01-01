@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: ai-rag
+  ai:
+    ollama:
+      chat:
+        model: qwen3:8b
+      embedding:
+        model: mxbai-embed-large:335m
+    vectorstore:
+      milvus:
+        client:
+          host: localhost
+          port: 19530
+          username: root
+          password: milvus
+        database-name: "default"
+        collection-name: "vector_store"
+        embedding-dimension: 1536
+        index-type: ivf-flat
+        metric-type: cosine
+
+sfg:
+  aiapp:
+    vectorStorePath: /tmp/vectorstore.json
+    documentsToLoad:
+      - classpath:/movies500-trimmed.csv

@@ -1,0 +1,4 @@
+{"properties": [{
+  "name": "sfg.aiapp",
+  "type": "guru.springframework.airag.config.VectorStoreProperties"
+}]}
