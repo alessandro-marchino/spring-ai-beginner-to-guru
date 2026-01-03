@@ -34,6 +34,10 @@ public class OllamaServiceImpl implements OllamaService {
             .build()
             .prompt()
             .user(question.question())
+            .system("""
+                You are a population service. You reveive population information from a service withi gives you the informations based on historical trends.
+                In your response, always give indications on how many historical points you have, and if there are any projections on future data.
+                """)
             .toolCallbacks(FunctionToolCallback.builder("getPopulation", new PopulationServiceFunction(apiNinjasKey))
                 .description("Get the population of a country")
                 .inputType(PopulationRequest.class)
