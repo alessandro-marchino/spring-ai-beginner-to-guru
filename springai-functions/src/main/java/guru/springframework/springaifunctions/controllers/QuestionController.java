@@ -25,4 +25,10 @@ public class QuestionController {
         return ollamaService.getAnswer(question);
     }
 
+    @PostMapping("/stock")
+    public Answer getStockData(@RequestBody Question question) {
+        log.info("Invoked getStockData");
+        return ollamaService.getStockData(question);
+    }
+
 }

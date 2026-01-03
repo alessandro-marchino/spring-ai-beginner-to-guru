@@ -10,10 +10,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import guru.springframework.springaifunctions.functions.PopulationServiceFunction;
+import guru.springframework.springaifunctions.functions.StockPriceServiceFunction;
 import guru.springframework.springaifunctions.model.Answer;
 import guru.springframework.springaifunctions.model.PopulationRequest;
 import guru.springframework.springaifunctions.model.PopulationResponse;
 import guru.springframework.springaifunctions.model.Question;
+import guru.springframework.springaifunctions.model.stock.StockPriceRequest;
+import guru.springframework.springaifunctions.model.stock.StockPriceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +49,33 @@ public class OllamaServiceImpl implements OllamaService {
                         return "";
                     }
                     String schema = ModelOptionsUtils.getJsonSchema(PopulationResponse.class, false);
+                    String json = ModelOptionsUtils.toJsonString(result);
+                    return schema + "\n" + json;
+                })
+                .build())
+            .call();
+
+        return new Answer(response.content());
+    }
+
+    @Override
+    public Answer getStockData(Question question) {
+        CallResponseSpec response = ChatClient.builder(chatModel)
+            .build()
+            .prompt()
+            .user(question.question())
+            .system("""
+                You are a stock price service. You retreive stock price information from a service which gives you the informations for a given ticker or symbol.
+                In your response, always give indications on how the data of the last update not by using the UNIX timestamp, but converting it as a readable date and time based on the Europe/Rome timezone.
+                """)
+            .toolCallbacks(FunctionToolCallback.builder("getStockPrice", new StockPriceServiceFunction(apiNinjasKey))
+                .description("Get the price of a stock")
+                .inputType(StockPriceRequest.class)
+                .toolCallResultConverter((result, type) -> {
+                    if(result == null) {
+                        return "";
+                    }
+                    String schema = ModelOptionsUtils.getJsonSchema(StockPriceResponse.class, false);
                     String json = ModelOptionsUtils.toJsonString(result);
                     return schema + "\n" + json;
                 })

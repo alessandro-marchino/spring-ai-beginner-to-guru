@@ -6,4 +6,5 @@ import guru.springframework.springaifunctions.model.Question;
 public interface OllamaService {
 
     Answer getAnswer(Question question);
+    Answer getStockData(Question question);
 }
