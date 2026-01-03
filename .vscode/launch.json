@@ -29,6 +29,16 @@
             "projectName": "ai-rag-expert",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringaifunctionsApplication<springai-functions>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "guru.springframework.springaifunctions.SpringaifunctionsApplication",
+            "projectName": "springai-functions",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

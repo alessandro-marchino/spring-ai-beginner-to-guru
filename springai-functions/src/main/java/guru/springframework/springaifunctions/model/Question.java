@@ -1,5 +1,7 @@
 package guru.springframework.springaifunctions.model;
 
-public record Question(String question) {
+import org.springframework.lang.NonNull;
+
+public record Question(@NonNull String question) {
 
 }

@@ -19,7 +19,7 @@ public class QuestionController {
 
     private final OllamaService ollamaService;
 
-    @PostMapping("/wheather")
+    @PostMapping("/population")
     public Answer askQuestion(@RequestBody Question question) {
         log.info("Invoked askQuestion");
         return ollamaService.getAnswer(question);

@@ -27,7 +27,7 @@ public class PopulationServiceFunction implements Function<PopulationRequest, Po
                 httpHeaders.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
             })
             .build();
-        return restClient.get()
+        PopulationResponse res = restClient.get()
             .uri(uriBuilder -> {
                 log.info("Building URI for population request: {}", populationRequest);
                 uriBuilder.queryParam("country", populationRequest.country());
@@ -45,6 +45,8 @@ public class PopulationServiceFunction implements Function<PopulationRequest, Po
             })
             .retrieve()
             .body(PopulationResponse.class);
+        log.info("Response: {}", res);
+        return res;
     }
 
 }

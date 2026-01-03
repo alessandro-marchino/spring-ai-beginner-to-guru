@@ -1,0 +1,5 @@
+spring:
+  application.name: springaiintro
+  ai.ollama.chat.model: qwen3:8b
+
+sfg.aiapp.api-ninjas-key: ${API_NINJAS_KEY}
