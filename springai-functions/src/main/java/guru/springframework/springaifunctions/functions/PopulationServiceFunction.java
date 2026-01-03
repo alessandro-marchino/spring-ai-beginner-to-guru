@@ -45,7 +45,7 @@ public class PopulationServiceFunction implements Function<PopulationRequest, Po
             })
             .retrieve()
             .body(PopulationResponse.class);
-        log.info("Response: {}", res);
+        log.trace("Response: {}", res);
         return res;
     }
 
