@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"question\": \"What is the difference between Java and JavaScript?\"\r\n}",
+					"raw": "{\r\n    \"question\": \"What is a good truck to pull a Scout 300 LXF boat?\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -33,13 +33,65 @@
 			"response": []
 		},
 		{
+			"name": "/population",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\": \"What is the population of Italy? How did it change in the last years?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/population",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"population"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\": \"What is the stock price per the ticker AAPL?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/stock",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/capital",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stateOrCountry\": \"France\"\r\n}",
+					"raw": "{\r\n    \"stateOrCountry\": \"United States of Mexico\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,6 +105,59 @@
 					],
 					"path": [
 						"capital"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/capitalWithInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stateOrCountry\": \"Japan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/capitalWithInfo",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"capitalWithInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/lookup-image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/march/OneDrive/Immagini/Giappone_2017/03_Nara/03_Toudai-ji/DSCN0456.JPG"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/lookup-image",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lookup-image"
 					]
 				}
 			},
