@@ -1,8 +1,10 @@
 package guru.springframework.springaiimages.services;
 
-import guru.springframework.springaiimages.model.Question;
+import org.springframework.lang.NonNull;
+
+import guru.springframework.springaiimages.model.Answer;
 
 public interface OllamaService {
 
-    Object getAnswer(Question question);
+    Answer getAnswer(@NonNull byte[] imageBytes);
 }

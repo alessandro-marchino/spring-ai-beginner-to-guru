@@ -39,6 +39,16 @@
             "projectName": "springai-functions",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringaiimagesApplication<springai-images>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "guru.springframework.springaiimages.SpringaiimagesApplication",
+            "projectName": "springai-images",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
