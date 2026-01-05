@@ -1,0 +1,3 @@
+spring:
+  application.name: springaiimages
+  ai.ollama.chat.model: gemma3:4b
